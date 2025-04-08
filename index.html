@@ -7,413 +7,448 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'VT323', monospace;
-            background-color: #111;
-            color: white;
-            overflow-x: hidden;
-        }
-        
-        .game-boy {
-            background-color: #8B61A3;
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 15px;
-            border: 8px solid #533C66;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-        }
-        
-        .screen-container {
-            background-color: #052F38;
-            border-radius: 10px;
-            border: 5px solid #021418;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .screen {
-            background-color: #9BCC50;
-            border-radius: 5px;
-            padding: 20px;
-            min-height: 400px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
-        }
-        
+     * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family: 'VT323', monospace;
+        background-color: #111;
+        color: white;
+    }
+    
+    .game-boy {
+        background-color: #8B61A3;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 20px;
+        border-radius: 0;
+        border: 8px solid #533C66;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .screen-container {
+        background-color: #052F38;
+        border-radius: 10px;
+        border: 5px solid #021418;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        flex: 1;
+        margin-bottom: 20px;
+    }
+    
+    .screen {
+        background-color: #9BCC50;
+        border-radius: 5px;
+        padding: 20px;
+        height: 100%;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: #3B4CCA;
+        text-shadow: 2px 2px 0 #FFDE00, -2px -2px 0 #FFDE00, 2px -2px 0 #FFDE00, -2px 2px 0 #FFDE00;
+        animation: pulse 2s infinite;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: #CC0000;
+    }
+    
+    .message {
+        font-size: 1.4rem;
+        background-color: black;
+        border: 3px solid #3B4CCA;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 20px auto;
+        max-width: 80%;
+        position: relative;
+        text-align: left;
+    }
+    
+    .message::after {
+        content: "▼";
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        animation: blink 1s infinite;
+    }
+    
+    .pokemon-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    
+    .pokemon {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 20px;
+        animation: float 3s infinite alternate;
+    }
+    
+    .pokemon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    .pikachu {
+        animation-delay: 0.5s;
+    }
+    
+    .squirtle {
+        animation-delay: 1s;
+    }
+    
+    .progress-container {
+        background-color: white;
+        border: 3px solid #3B4CCA;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 20px auto;
+        max-width: 80%;
+    }
+    
+    .progress-bar {
+        height: 20px;
+        background-color: #CC0000;
+        width: 30%;
+        border-radius: 5px;
+        position: relative;
+        animation: progress 4s infinite alternate;
+    }
+    
+    .progress-bar::after {
+        content: "Reparando...";
+        position: absolute;
+        top: 0;
+        left: 105%;
+        white-space: nowrap;
+    }
+    
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        height: 120px;
+    }
+    
+    .d-pad {
+        width: 120px;
+        height: 120px;
+        background-color: #444;
+        border-radius: 60px;
+        position: relative;
+    }
+    
+    .d-pad::before, .d-pad::after {
+        content: "";
+        position: absolute;
+        background-color: #444;
+    }
+    
+    .d-pad::before {
+        width: 40px;
+        height: 120px;
+        left: 40px;
+        top: 0;
+    }
+    
+    .d-pad::after {
+        width: 120px;
+        height: 40px;
+        left: 0;
+        top: 40px;
+    }
+    
+    .action-buttons {
+        display: flex;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 50px;
+        height: 50px;
+        background-color: #CC0000;
+        border-radius: 50%;
+        margin: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+        box-shadow: 0 5px 0 #8B0000;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .btn:hover {
+        transform: translateY(2px);
+        box-shadow: 0 3px 0 #8B0000;
+    }
+    
+    .btn:active {
+        transform: translateY(5px);
+        box-shadow: 0 0 0 #8B0000;
+    }
+    
+    .lights {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #CC0000;
+        box-shadow: 0 0 10px #FF0000;
+        animation: blink 1s infinite alternate;
+    }
+    
+    .pokeball {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(to bottom, #CC0000 0%, #CC0000 50%, white 50%, white 100%);
+        border-radius: 50%;
+        border: 3px solid #333;
+        animation: rotate 4s linear infinite;
+    }
+    
+    .pokeball::before {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border: 3px solid #333;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .pokeball:nth-child(1) {
+        top: 10%;
+        left: 10%;
+        animation-delay: 0.5s;
+    }
+    
+    .pokeball:nth-child(2) {
+        top: 20%;
+        right: 15%;
+        animation-delay: 1s;
+    }
+    
+    .pokeball:nth-child(3) {
+        bottom: 15%;
+        left: 20%;
+        animation-delay: 1.5s;
+    }
+    
+    .clouds {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+    
+    .cloud {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 20px;
+        animation: moveCloud linear infinite;
+    }
+    
+    .cloud:nth-child(1) {
+        width: 100px;
+        height: 30px;
+        top: 10%;
+        animation-duration: 30s;
+    }
+    
+    .cloud:nth-child(2) {
+        width: 150px;
+        height: 40px;
+        top: 30%;
+        animation-duration: 35s;
+        animation-delay: 5s;
+    }
+    
+    .cloud:nth-child(3) {
+        width: 80px;
+        height: 25px;
+        top: 60%;
+        animation-duration: 25s;
+        animation-delay: 10s;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-15px); }
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.2; }
+    }
+    
+    @keyframes progress {
+        0% { width: 10%; }
+        100% { width: 70%; }
+    }
+    
+    @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes moveCloud {
+        0% { left: -200px; }
+        100% { left: 100%; }
+    }
+    
+    @media (max-width: 768px) {
         h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #3B4CCA;
-            text-shadow: 2px 2px 0 #FFDE00, -2px -2px 0 #FFDE00, 2px -2px 0 #FFDE00, -2px 2px 0 #FFDE00;
-            animation: pulse 2s infinite;
+            font-size: 2rem;
         }
         
         h2 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #CC0000;
-        }
-        
-        .message {
             font-size: 1.4rem;
-            background-color: black;
-            border: 3px solid #3B4CCA;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px auto;
-            max-width: 80%;
-            position: relative;
-            text-align: left;
-        }
-        
-        .message::after {
-            content: "▼";
-            position: absolute;
-            bottom: 5px;
-            right: 10px;
-            animation: blink 1s infinite;
-        }
-        
-        .pokemon-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
         }
         
         .pokemon {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 20px;
-            animation: float 3s infinite alternate;
+            width: 80px;
+            height: 80px;
         }
         
-        .pokemon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .pikachu {
-            animation-delay: 0.5s;
-        }
-        
-        .squirtle {
-            animation-delay: 1s;
-        }
-        
-        .progress-container {
-            background-color: white;
-            border: 3px solid #3B4CCA;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 20px auto;
-            max-width: 80%;
-        }
-        
-        .progress-bar {
-            height: 20px;
-            background-color: #CC0000;
-            width: 30%;
-            border-radius: 5px;
-            position: relative;
-            animation: progress 4s infinite alternate;
-        }
-        
-        .progress-bar::after {
-            content: "Reparando...";
-            position: absolute;
-            top: 0;
-            left: 105%;
-            white-space: nowrap;
+        .message, .progress-container {
+            max-width: 90%;
         }
         
         .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            height: 80px;
         }
         
         .d-pad {
-            width: 120px;
-            height: 120px;
-            background-color: #444;
-            border-radius: 60px;
-            position: relative;
-        }
-        
-        .d-pad::before, .d-pad::after {
-            content: "";
-            position: absolute;
-            background-color: #444;
+            width: 80px;
+            height: 80px;
         }
         
         .d-pad::before {
-            width: 40px;
-            height: 120px;
-            left: 40px;
-            top: 0;
+            width: 30px;
+            height: 80px;
+            left: 25px;
         }
         
         .d-pad::after {
-            width: 120px;
-            height: 40px;
-            left: 0;
-            top: 40px;
-        }
-        
-        .action-buttons {
-            display: flex;
+            width: 80px;
+            height: 30px;
+            top: 25px;
         }
         
         .btn {
-            width: 50px;
-            height: 50px;
-            background-color: #CC0000;
-            border-radius: 50%;
-            margin: 0 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            box-shadow: 0 5px 0 #8B0000;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .btn:hover {
-            transform: translateY(2px);
-            box-shadow: 0 3px 0 #8B0000;
-        }
-        
-        .btn:active {
-            transform: translateY(5px);
-            box-shadow: 0 0 0 #8B0000;
-        }
-        
-        .lights {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: #CC0000;
-            box-shadow: 0 0 10px #FF0000;
-            animation: blink 1s infinite alternate;
-        }
-        
-        .pokeball {
-            position: absolute;
             width: 40px;
             height: 40px;
-            background: linear-gradient(to bottom, #CC0000 0%, #CC0000 50%, white 50%, white 100%);
-            border-radius: 50%;
-            border: 3px solid #333;
-            animation: rotate 4s linear infinite;
         }
-        
-        .pokeball::before {
-            content: "";
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: white;
-            border: 3px solid #333;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .pokeball:nth-child(1) {
-            top: 10%;
-            left: 10%;
-            animation-delay: 0.5s;
-        }
-        
-        .pokeball:nth-child(2) {
-            top: 20%;
-            right: 15%;
-            animation-delay: 1s;
-        }
-        
-        .pokeball:nth-child(3) {
-            bottom: 15%;
-            left: 20%;
-            animation-delay: 1.5s;
-        }
-        
-        .clouds {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        
-        .cloud {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 20px;
-            animation: moveCloud linear infinite;
-        }
-        
-        .cloud:nth-child(1) {
-            width: 100px;
-            height: 30px;
-            top: 10%;
-            animation-duration: 30s;
-        }
-        
-        .cloud:nth-child(2) {
-            width: 150px;
-            height: 40px;
-            top: 30%;
-            animation-duration: 35s;
-            animation-delay: 5s;
-        }
-        
-        .cloud:nth-child(3) {
-            width: 80px;
-            height: 25px;
-            top: 60%;
-            animation-duration: 25s;
-            animation-delay: 10s;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-15px); }
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
-        
-        @keyframes progress {
-            0% { width: 10%; }
-            100% { width: 70%; }
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes moveCloud {
-            0% { left: -200px; }
-            100% { left: 100%; }
-        }
-        
-        @media (max-width: 768px) {
-            .game-boy {
-                margin: 10px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            h2 {
-                font-size: 1.4rem;
-            }
-            
-            .pokemon {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .message, .progress-container {
-                max-width: 90%;
-            }
-        }
-        
-        /* Animación de píxeles */
-        .pixel-effect {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.1;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23000000' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-        }
-        
-        /* Efectos de scanline */
-        .scanlines {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0) 50%,
-                rgba(0, 0, 0, 0.1) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
-            opacity: 0.15;
-        }
-        
-        /* Glitch effect */
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-        
-        .glitch {
-            animation: glitch 1s infinite;
-            animation-timing-function: step-end;
-            animation-play-state: paused;
-        }
-        
-        .glitch:hover {
-            animation-play-state: running;
-        }
-        
-        /* Pokemon footprints */
-        .footprints {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            display: flex;
-        }
-        
-        .footprint {
-            width: 20px;
-            height: 20px;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 50% 50% 50% 0;
-            margin-right: 15px;
-            transform: rotate(45deg);
-        }
-    </style>
+    }
+    
+    /* Animación de píxeles */
+    .pixel-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0.1;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23000000' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    }
+    
+    /* Efectos de scanline */
+    .scanlines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 50%,
+            rgba(0, 0, 0, 0.1) 50%
+        );
+        background-size: 100% 4px;
+        pointer-events: none;
+        opacity: 0.15;
+    }
+    
+    /* Glitch effect */
+    @keyframes glitch {
+        0% { transform: translate(0) }
+        20% { transform: translate(-2px, 2px) }
+        40% { transform: translate(-2px, -2px) }
+        60% { transform: translate(2px, 2px) }
+        80% { transform: translate(2px, -2px) }
+        100% { transform: translate(0) }
+    }
+    
+    .glitch {
+        animation: glitch 1s infinite;
+        animation-timing-function: step-end;
+        animation-play-state: paused;
+    }
+    
+    .glitch:hover {
+        animation-play-state: running;
+    }
+    
+    /* Pokemon footprints */
+    .footprints {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        display: flex;
+    }
+    
+    .footprint {
+        width: 20px;
+        height: 20px;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 50% 50% 50% 0;
+        margin-right: 15px;
+        transform: rotate(45deg);
+    }
+</style>
 </head>
 <body>
     <div class="game-boy">
